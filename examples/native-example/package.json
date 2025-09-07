@@ -1,0 +1,16 @@
+{
+  "name": "native-example",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "start": "echo This is a placeholder; integrate with Expo or RN CLI",
+    "build": "echo build placeholder"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-native": "0.74.0",
+    "@md-latex-renderer/core": "workspace:*",
+    "@md-latex-renderer/react-native": "workspace:*"
+  }
+}

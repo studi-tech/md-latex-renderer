@@ -1,0 +1,24 @@
+{
+  "name": "@md-latex-renderer/react",
+  "version": "0.1.0",
+  "description": "React renderer for md-latex-renderer AST.",
+  "main": "src/index.jsx",
+  "type": "module",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=17",
+    "react-dom": ">=17"
+  },
+  "dependencies": {
+    "@md-latex-renderer/core": "workspace:*",
+    "lodash": "^4.17.21"
+  },
+  "exports": {
+    ".": "./src/index.jsx"
+  },
+  "files": ["src"],
+  "scripts": {
+    "build": "echo react: nothing to build",
+    "test": "node --version > NUL"
+  }
+}

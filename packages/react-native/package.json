@@ -1,0 +1,24 @@
+{
+  "name": "@md-latex-renderer/react-native",
+  "version": "0.1.0",
+  "description": "React Native renderer for md-latex-renderer AST.",
+  "main": "src/index.jsx",
+  "type": "module",
+  "license": "MIT",
+  "peerDependencies": {
+    "react": ">=17",
+    "react-native": ">=0.71"
+  },
+  "dependencies": {
+  "@md-latex-renderer/core": "workspace:*",
+  "@md-latex-renderer/react": "workspace:*"
+  },
+  "exports": {
+    ".": "./src/index.jsx"
+  },
+  "files": ["src"],
+  "scripts": {
+    "build": "echo rn: nothing to build",
+    "test": "node --version > NUL"
+  }
+}

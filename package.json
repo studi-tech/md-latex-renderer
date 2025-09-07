@@ -1,0 +1,16 @@
+{
+  "name": "md-latex-renderer",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Monorepo for Markdown → AST core, walkers, React / React Native renderers, and LaTeX exporter.",
+  "license": "MIT",
+  "workspaces": [
+    "packages/*",
+    "examples/*"
+  ],
+  "scripts": {
+    "build": "echo No build step yet",
+    "test": "echo No tests",
+    "lint": "echo No lints"
+  }
+}
