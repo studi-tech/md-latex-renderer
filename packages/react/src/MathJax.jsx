@@ -1,17 +1,15 @@
-import React, { memo } from "react";
+import React, { memo, useState, useEffect } from "react";
 
-const mathjax = require("./mathjax/es5/js/mathjax.js").mathjax;
-const TeX = require("./mathjax/es5/js/input/tex.js").TeX;
-const SVG = require("./mathjax/es5/js/output/svg.js").SVG;
-const liteAdaptor =
-  require("./mathjax/es5/js/adaptors/liteAdaptor.js").liteAdaptor;
-const RegisterHTMLHandler =
-  require("./mathjax/es5/js/handlers/html.js").RegisterHTMLHandler;
+import { mathjax } from "mathjax-full/js/mathjax.js";
+import { TeX } from "mathjax-full/js/input/tex.js";
+import { SVG } from "mathjax-full/js/output/svg.js";
+import { liteAdaptor } from "mathjax-full/js/adaptors/liteAdaptor.js";
+import { RegisterHTMLHandler } from "mathjax-full/js/handlers/html.js";
+import { AllPackages } from "mathjax-full/js/input/tex/AllPackages.js";
+import { defaultConstants } from "./defaults.jsx";
+
 const adaptor = liteAdaptor();
 RegisterHTMLHandler(adaptor);
-
-const AllPackages =
-  require("./mathjax/es5/js/input/tex/AllPackages.js").AllPackages;
 
 const getScale = (_svgString) => {
   const svgString = _svgString.match(/<svg([^>]+)>/gi).join("");
@@ -77,13 +75,13 @@ const texToSvg = (textext = "", fontSize = 8, params) => {
   }
 
   // Get multiplier for single numbers/chars to avoid scaling issues
-  let multiplier = 1;
+  let multiplier = defaultConstants.SVG_RATIO;
   if (new RegExp(`^\\\\mathrm{[a-z0-9]}$`, "g").test(textext)) {
-    multiplier = 1.2;
+    multiplier *= 1.2;
   } else if (new RegExp(`^\\\\mathrm{[a-z0-9]+}$`, "g").test(textext)) {
-    multiplier = 1.1;
+    multiplier *= 1.1;
   } else if (new RegExp(`^\\\\mathrm{[A-Z]}$`, "g").test(textext)) {
-    multiplier = 1.1;
+    multiplier *= 1.1;
   }
 
   if (multiplier > 1) {
@@ -114,7 +112,7 @@ const texToSvg = (textext = "", fontSize = 8, params) => {
 };
 
 const MathJax = memo(
-  ({ fontSize, color, inline, maxWidth, SvgFromString, children } = {}) => {
+  ({ fontSize, color, inline, maxWidth, children, SvgFromString } = {}) => {
     const params = {
       ex: 8,
       em: 16,

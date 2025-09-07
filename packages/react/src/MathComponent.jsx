@@ -1,4 +1,5 @@
-import MathJax from "./MathJax.jsx";
+import { memo } from "react";
+import CustomMathJax from "./MathJax.jsx";
 import { defaultRenderers, defaultConstants } from "./defaults.jsx";
 
 const { HIGHLIGHT_COLOR, INDENT_SIZE } = defaultConstants;
@@ -27,7 +28,7 @@ function cleanLatexText(text) {
   return `\\mathrm{${newText}}`;
 }
 
-const MathComponent = React.memo(
+const MathComponent = memo(
   ({
     text,
     isBlock,
@@ -76,7 +77,7 @@ const MathComponent = React.memo(
             {leftSymbol}
           </Text>
         )}
-        <MathJax
+        <CustomMathJax
           fontSize={fontSize}
           color={fixedColor}
           inline={showAsBlock === undefined ? !isBlock : !showAsBlock}
@@ -84,7 +85,7 @@ const MathComponent = React.memo(
           SvgFromString={SVG}
         >
           {fixedText}
-        </MathJax>
+        </CustomMathJax>
         {rightSymbol && (
           <Text
             style={{
@@ -105,6 +106,7 @@ const MathComponent = React.memo(
         // Add svg image to fit inline math
         <Button
           style={{
+            display: "flex",
             flexDirection: "row",
             justifyContent: "center",
             alignItems: "center",
@@ -134,6 +136,7 @@ const MathComponent = React.memo(
       return (
         <Block
           style={{
+            display: "flex",
             flexDirection: "row",
             justifyContent: "center",
             alignItems: "center",

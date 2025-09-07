@@ -416,7 +416,7 @@ function parseMarkdownLevel(blocks) {
   }
   return {
     nestedBlocks: document,
-    orderedComponents: orderedComponents,
+    orderedComponents,
   };
 }
 

@@ -11,12 +11,15 @@
   },
   "dependencies": {
     "@md-latex-renderer/core": "workspace:*",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "mathjax-full": "^3.2.2"
   },
   "exports": {
     ".": "./src/index.jsx"
   },
-  "files": ["src"],
+  "files": [
+    "src"
+  ],
   "scripts": {
     "build": "echo react: nothing to build",
     "test": "node --version > NUL"

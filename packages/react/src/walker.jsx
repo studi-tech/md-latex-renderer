@@ -60,7 +60,7 @@ const ItemRenderer = memo(
     fixedColor,
     showAsBlock,
     maxFormulaWidth,
-    fontSize = FONT_SIZE,
+    fontSize,
     indentation = 0,
     isSelectable,
     firstSelectedView,
@@ -75,11 +75,12 @@ const ItemRenderer = memo(
       case MARKDOWN_COMPONENT.ORDERED_LIST:
       case MARKDOWN_COMPONENT.UNORDERED_LIST:
         if (MARKDOWN_COMPONENT.HEADING) {
-          fontSize = FONT_SIZE + normalizeFontSize(item.fontLevel);
+          fontSize = fontSize + normalizeFontSize(item.fontLevel);
         }
         return (
           <Block
             style={{
+              display: "flex",
               width: "100%",
               flexDirection: "row",
               rowGap: normalizePx(5),
@@ -130,6 +131,7 @@ const ItemRenderer = memo(
             <Block style={{ flexShrink: 1 }}>
               <Block
                 style={{
+                  display: "flex",
                   flexDirection: "row",
                   flexWrap: "wrap",
                   rowGap: 0,
@@ -246,6 +248,7 @@ const ItemRenderer = memo(
             </Text>
           );
         }
+        console.log("Writing", item.content);
         return item.content.split(" ").map((word, index) => {
           const isSelected =
             firstSelectedView !== null &&
@@ -324,6 +327,7 @@ const ItemRenderer = memo(
           <Link
             // Prevents text to wrap, while keeping the minimum width
             style={{
+              display: "flex",
               flexDirection: "row",
               flexWrap: "wrap",
               rowGap: 0,
@@ -400,10 +404,21 @@ const ItemRenderer = memo(
   }
 );
 
+/**
+ * Math rendering component
+ * Renders LaTeX math expressions using MathJax
+ * @param {string} latex - The LaTeX string to render
+ * @param {string} fixedColor - The color to use for the rendered output
+ * @param {number} fontSize - The font size to use for the rendered output
+ * @param {number} maxFormulaWidth - The maximum width of the rendered formula
+ * @param {boolean} showAsBlock - Whether to show the formula as a block
+ * @returns {JSX.Element} The rendered MathJax component
+ */
 const MathRender = React.memo(
   ({
     latex,
     fixedColor,
+    fontSize = FONT_SIZE,
     maxFormulaWidth,
     showAsBlock = undefined,
     images = [],
@@ -416,7 +431,6 @@ const MathRender = React.memo(
       images,
       videos
     );
-
     const [firstSelectedView, setFirstSelectedView] = React.useState(null);
     const [lastSelectedView, setLastSelectedView] = React.useState(null);
     const selectedText = React.useRef("");
@@ -452,6 +466,7 @@ const MathRender = React.memo(
       return (
         <AnimatedBlock
           style={{
+            display: "flex",
             flex: 1,
             justifyContent: "center",
           }}
@@ -461,6 +476,7 @@ const MathRender = React.memo(
               key={index}
               item={item}
               fixedColor={fixedColor}
+              fontSize={fontSize}
               maxFormulaWidth={maxFormulaWidth}
               showAsBlock={showAsBlock}
               isSelectable={!!useSelection}
@@ -481,6 +497,7 @@ const MathRender = React.memo(
     return (
       <Block
         style={{
+          display: "flex",
           flex: 1,
           justifyContent: "center",
         }}
@@ -490,6 +507,7 @@ const MathRender = React.memo(
             key={index}
             item={item}
             fixedColor={fixedColor}
+            fontSize={fontSize}
             maxFormulaWidth={maxFormulaWidth}
             showAsBlock={showAsBlock}
             isSelectable={!!useSelection}
@@ -508,6 +526,7 @@ const MathRender = React.memo(
     const isEqual =
       prevProps.latex === nextProps.latex &&
       prevProps.fixedColor === nextProps.fixedColor &&
+      prevProps.fontSize === nextProps.fontSize &&
       prevProps.maxFormulaWidth === nextProps.maxFormulaWidth &&
       prevProps.showAsBlock === nextProps.showAsBlock &&
       prevProps.useSelection === nextProps.useSelection &&

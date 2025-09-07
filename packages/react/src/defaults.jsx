@@ -3,13 +3,14 @@ import React from "react";
 export const defaultRenderers = {
   Text: ({ children, onPress, onLongPress, ...props }) =>
     React.createElement(
-      React.Fragment,
+      "span",
       { onClick: onPress, onDoubleClick: onLongPress, ...props },
       children
     ),
   SVG: ({ svgString, ...props }) =>
     React.createElement("img", {
       src: `data:image/svg+xml;utf8,${encodeURIComponent(svgString)}`,
+      // style: { display: "inline-block" },
       ...props,
     }),
   LoadingIndicator: () => React.createElement("span", props, "Loading..."),
@@ -43,4 +44,5 @@ export const defaultConstants = {
   FONT_SIZE: defaultActions.normalizeFontSize(12),
   HIGHLIGHT_COLOR: "rgb(46, 62, 159)",
   INDENT_SIZE: defaultActions.normalizePx(15),
+  SVG_RATIO: 0.15,
 };
