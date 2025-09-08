@@ -1,11 +1,18 @@
 import { memo } from "react";
 
-import { mathjax } from "mathjax-full/js/mathjax.js";
-import { TeX } from "mathjax-full/js/input/tex.js";
-import { SVG } from "mathjax-full/js/output/svg.js";
-import { liteAdaptor } from "mathjax-full/js/adaptors/liteAdaptor.js";
-import { RegisterHTMLHandler } from "mathjax-full/js/handlers/html.js";
-import { AllPackages } from "mathjax-full/js/input/tex/AllPackages.js";
+import * as mjmathjax from "mathjax-full/js/mathjax.js";
+import * as mjTeX from "mathjax-full/js/input/tex.js";
+import * as mjSVG from "mathjax-full/js/output/svg.js";
+import * as mjliteAdaptor from "mathjax-full/js/adaptors/liteAdaptor.js";
+import * as mjRegisterHTMLHandler from "mathjax-full/js/handlers/html.js";
+import * as mjAllPackages from "mathjax-full/js/input/tex/AllPackages.js";
+
+const { mathjax } = mjmathjax;
+const { TeX } = mjTeX;
+const { SVG } = mjSVG;
+const { liteAdaptor } = mjliteAdaptor;
+const { RegisterHTMLHandler } = mjRegisterHTMLHandler;
+const { AllPackages } = mjAllPackages;
 
 const adaptor = liteAdaptor();
 RegisterHTMLHandler(adaptor);
