@@ -1,4 +1,4 @@
-import React, { memo, useState, useEffect } from "react";
+import { memo } from "react";
 
 import { mathjax } from "mathjax-full/js/mathjax.js";
 import { TeX } from "mathjax-full/js/input/tex.js";

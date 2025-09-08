@@ -46,3 +46,10 @@ export const defaultConstants = {
   INDENT_SIZE: defaultActions.normalizePx(15),
   SVG_RATIO: 0.15,
 };
+
+const defaults = {
+  renderers: defaultRenderers,
+  actions: defaultActions,
+  constants: defaultConstants,
+};
+export default defaults;

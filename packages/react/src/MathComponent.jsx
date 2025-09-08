@@ -1,9 +1,5 @@
 import { memo } from "react";
 import CustomMathJax from "./MathJax.jsx";
-import { defaultRenderers, defaultConstants } from "./defaults.jsx";
-
-const { HIGHLIGHT_COLOR, INDENT_SIZE } = defaultConstants;
-const { LoadingIndicator, Text, Block, Button, SVG } = defaultRenderers;
 
 function cleanLatexText(text) {
   let newText = "";
@@ -45,7 +41,11 @@ const MathComponent = memo(
     setFirstSelectedView,
     lastSelectedView,
     setLastSelectedView,
+    defaults,
   }) => {
+    const { defaultConstants, defaultRenderers } = defaults;
+    const { HIGHLIGHT_COLOR, INDENT_SIZE } = defaultConstants;
+    const { LoadingIndicator, Text, Block, Button, SVG } = defaultRenderers;
     // const { theme } = useContext(ThemeContext);
     // const { width } = Dimensions.get("window");
     const fixedText = cleanLatexText(text);
@@ -60,7 +60,7 @@ const MathComponent = memo(
 
     if (fixedText.length === 0) {
       // Loading circle
-      return <LoadingIndicator />;
+      return <LoadingIndicator color={fixedColor} />;
     }
 
     const MathComponent = (

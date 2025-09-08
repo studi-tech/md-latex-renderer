@@ -6,17 +6,24 @@
   "type": "module",
   "license": "MIT",
   "peerDependencies": {
+    "expo": ">=48.0.0",
     "react": ">=17",
     "react-native": ">=0.71"
   },
   "dependencies": {
-  "@md-latex-renderer/core": "workspace:*",
-  "@md-latex-renderer/react": "workspace:*"
+    "@md-latex-renderer/core": "workspace:*",
+    "@md-latex-renderer/react": "workspace:*",
+    "expo-screen-orientation": "^8.1.7",
+    "expo-video": "^2.2.2",
+    "moti": "^0.30.0",
+    "react-native-svg": "^15.12.1"
   },
   "exports": {
     ".": "./src/index.jsx"
   },
-  "files": ["src"],
+  "files": [
+    "src"
+  ],
   "scripts": {
     "build": "echo rn: nothing to build",
     "test": "node --version > NUL"

@@ -1,7 +1,10 @@
-import React from "react";
-import { Text as RNText, View as RNView } from "react-native";
-import { defaultRenderers } from "./defaultRenderers.jsx";
+import defaults from "./defaultRenderers.jsx";
+import MarkdownRenderer from "@md-latex-renderer/react";
 
-export function MarkdownRenderer({ ast, overrides = {} }) {}
+function MarkdownRendererNative(props) {
+  return <MarkdownRenderer defaults={defaults} {...props} />;
+}
 
-export default MarkdownRenderer;
+export { MarkdownRendererNative as MarkdownRenderer };
+
+export default MarkdownRendererNative;

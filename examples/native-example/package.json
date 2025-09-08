@@ -4,13 +4,16 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "start": "echo This is a placeholder; integrate with Expo or RN CLI",
-    "build": "echo build placeholder"
+    "start": "npx expo start",
+    "dev": "npx expo start --dev-client",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
   },
   "dependencies": {
-    "react": "^18.2.0",
-    "react-native": "0.74.0",
     "@md-latex-renderer/core": "workspace:*",
-    "@md-latex-renderer/react-native": "workspace:*"
+    "@md-latex-renderer/react-native": "workspace:*",
+    "expo": "^51.0.39",
+    "react": "^18.2.0",
+    "react-native": "0.74.0"
   }
 }

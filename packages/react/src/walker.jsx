@@ -5,15 +5,7 @@ import lodash from "lodash";
 
 import { parseMarkdown, MARKDOWN_COMPONENT } from "@md-latex-renderer/core";
 import MathComponent from "./MathComponent.jsx";
-import {
-  defaultActions,
-  defaultConstants,
-  defaultRenderers,
-} from "./defaults.jsx";
-
-const { Text, Block, Link, Image, Video, AnimatedBlock } = defaultRenderers;
-const { normalizeFontSize, normalizePx } = defaultActions;
-const { FONT_SIZE, HIGHLIGHT_COLOR, INDENT_SIZE } = defaultConstants;
+import reactDefaults from "./defaults.jsx";
 
 // Get the text for the enumeration in the format depending on level (number, letter, roman, etc)
 function enumerationToText(enumeration, level = 0) {
@@ -54,6 +46,7 @@ const ItemRenderer = memo(
    *
    * @param {object} attributes
    * @param {import("@md-latex-renderer/core").LatexBlock} attributes.item
+   * @param {import('./defaults.jsx')} defaults - The default values to use
    */
   ({
     item,
@@ -68,7 +61,13 @@ const ItemRenderer = memo(
     lastSelectedView,
     setLastSelectedView,
     isOnlyChild = false,
+    defaults,
   }) => {
+    const { defaultRenderers, defaultActions, defaultConstants } = defaults;
+    const { Text, Block, Link, Image, Video, AnimatedBlock } = defaultRenderers;
+    const { normalizeFontSize, normalizePx } = defaultActions;
+    const { HIGHLIGHT_COLOR, INDENT_SIZE } = defaultConstants;
+
     switch (item.type) {
       case MARKDOWN_COMPONENT.PARAGRAPH:
       case MARKDOWN_COMPONENT.HEADING:
@@ -156,6 +155,7 @@ const ItemRenderer = memo(
                     lastSelectedView={lastSelectedView}
                     setLastSelectedView={setLastSelectedView}
                     isOnlyChild={item.content.length === 1}
+                    defaults={defaults}
                   />
                 ))}
                 {/* Add final padding for correcting justify */}
@@ -190,6 +190,7 @@ const ItemRenderer = memo(
                     setFirstSelectedView={setFirstSelectedView}
                     lastSelectedView={lastSelectedView}
                     setLastSelectedView={setLastSelectedView}
+                    defaults={defaults}
                   />
                 ))}
               </Block>
@@ -320,6 +321,7 @@ const ItemRenderer = memo(
             setFirstSelectedView={setFirstSelectedView}
             lastSelectedView={lastSelectedView}
             setLastSelectedView={setLastSelectedView}
+            defaults={defaults}
           />
         );
       case MARKDOWN_COMPONENT.URL:
@@ -354,6 +356,7 @@ const ItemRenderer = memo(
                 setFirstSelectedView={setFirstSelectedView}
                 lastSelectedView={lastSelectedView}
                 setLastSelectedView={setLastSelectedView}
+                defaults={defaults}
               />
             ))}
           </Link>
@@ -361,15 +364,7 @@ const ItemRenderer = memo(
       case MARKDOWN_COMPONENT.IMAGE:
         return (
           <AnimatedBlock>
-            <Image
-              src={item.content}
-              alt=""
-              style={{
-                marginHorizontal: "5%",
-                height: "100%",
-                borderRadius: normalizePx(30),
-              }}
-            />
+            <Image src={item.content} alt="" width={maxFormulaWidth * 0.9} />
           </AnimatedBlock>
         );
       case MARKDOWN_COMPONENT.VIDEO:
@@ -412,20 +407,27 @@ const ItemRenderer = memo(
  * @param {number} fontSize - The font size to use for the rendered output
  * @param {number} maxFormulaWidth - The maximum width of the rendered formula
  * @param {boolean} showAsBlock - Whether to show the formula as a block
+ * @param {import('./defaults.jsx')} defaults - The default values to use
  * @returns {JSX.Element} The rendered MathJax component
  */
 const MathRender = React.memo(
   ({
     latex,
     fixedColor,
-    fontSize = FONT_SIZE,
+    fontSize,
     maxFormulaWidth,
     showAsBlock = undefined,
     images = [],
     videos = [],
     useAnimation = false,
     useSelection = null,
+    defaults = reactDefaults,
   }) => {
+    const { defaultRenderers, defaultConstants } = defaults;
+    const { Block, AnimatedBlock } = defaultRenderers;
+
+    if (!fontSize) fontSize = defaultConstants.FONT_SIZE;
+
     const { nestedBlocks, orderedComponents } = parseMarkdown(
       latex,
       images,
@@ -488,6 +490,7 @@ const MathRender = React.memo(
               setLastSelectedView={
                 useSelection ? setLastSelectedView : () => {}
               }
+              defaults={defaults}
             />
           ))}
         </AnimatedBlock>
@@ -517,6 +520,7 @@ const MathRender = React.memo(
             }
             lastSelectedView={useSelection ? lastSelectedView : null}
             setLastSelectedView={useSelection ? setLastSelectedView : () => {}}
+            defaults={defaults}
           />
         ))}
       </Block>
