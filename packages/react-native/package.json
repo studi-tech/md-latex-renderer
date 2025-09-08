@@ -1,6 +1,6 @@
 {
   "name": "@md-latex-renderer/react-native",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "React Native renderer for md-latex-renderer AST.",
   "main": "src/index.jsx",
   "type": "module",
