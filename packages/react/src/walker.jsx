@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useEffect, memo } from "react";
 
-import lodash from "lodash";
+import * as lodash from "lodash";
 
 import { parseMarkdown, MARKDOWN_COMPONENT } from "@md-latex-renderer/core";
 import MathComponent from "./MathComponent.jsx";
