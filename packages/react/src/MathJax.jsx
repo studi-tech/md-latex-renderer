@@ -1,18 +1,12 @@
 import { memo } from "react";
-
-import * as mjmathjax from "mathjax-full/js/mathjax.js";
-import * as mjTeX from "mathjax-full/js/input/tex.js";
-import * as mjSVG from "mathjax-full/js/output/svg.js";
-import * as mjliteAdaptor from "mathjax-full/js/adaptors/liteAdaptor.js";
-import * as mjRegisterHTMLHandler from "mathjax-full/js/handlers/html.js";
-import * as mjAllPackages from "mathjax-full/js/input/tex/AllPackages.js";
-
-const { mathjax } = mjmathjax;
-const { TeX } = mjTeX;
-const { SVG } = mjSVG;
-const { liteAdaptor } = mjliteAdaptor;
-const { RegisterHTMLHandler } = mjRegisterHTMLHandler;
-const { AllPackages } = mjAllPackages;
+import {
+  AllPackages,
+  liteAdaptor,
+  mathjax,
+  RegisterHTMLHandler,
+  SVG,
+  Tex,
+} from "./mathjax-compat.js";
 
 const adaptor = liteAdaptor();
 RegisterHTMLHandler(adaptor);
@@ -95,7 +89,7 @@ const texToSvg = (textext = "", fontSize = 8, svgRatio = 1, params) => {
     textext = "\\vphantom{x}" + textext;
   }
 
-  const tex = new TeX({
+  const tex = new Tex({
     packages: params.packages.split(/\s*,\s*/),
   });
   const svg = new SVG({ fontCache: params.fontCache ? "local" : "none" });

@@ -127,6 +127,28 @@ importers:
         specifier: ^7.1.5
         version: 7.1.5(@types/node@24.3.1)(lightningcss@1.27.0)(terser@5.44.0)
 
+  examples/react-example-2:
+    dependencies:
+      '@md-latex-renderer/react':
+        specifier: ^0.1.5
+        version: 0.1.5(mathjax-full@3.2.2)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)
+      react:
+        specifier: ^19.1.1
+        version: 19.1.1
+      react-dom:
+        specifier: ^19.1.1
+        version: 19.1.1(react@19.1.1)
+    devDependencies:
+      '@vitejs/plugin-react':
+        specifier: ^4.3.1
+        version: 4.7.0(vite@7.1.5(@types/node@24.3.1)(lightningcss@1.27.0)(terser@5.44.0))
+      babel-plugin-react-compiler:
+        specifier: 19.1.0-rc.3
+        version: 19.1.0-rc.3
+      vite:
+        specifier: ^7.1.5
+        version: 7.1.5(@types/node@24.3.1)(lightningcss@1.27.0)(terser@5.44.0)
+
   packages/core: {}
 
   packages/react:
@@ -1055,6 +1077,16 @@ packages:
 
   '@jridgewell/trace-mapping@0.3.30':
     resolution: {integrity: sha512-GQ7Nw5G2lTu/BtHTKfXhKHok2WGetd4XYcVKGx00SjAk8GMwgJM3zr6zORiPGuOE+/vkc90KtTosSSvaCjKb2Q==}
+
+  '@md-latex-renderer/core@0.1.0':
+    resolution: {integrity: sha512-EnmY5diWj0B4OTt19jMhZJ27GSl+OUSPZajfhj+5GcWTxvr4OSJ8Qj3ddq1Q6y2kL68aS05Qyc2FOpWOyuRYeA==}
+
+  '@md-latex-renderer/react@0.1.5':
+    resolution: {integrity: sha512-8tJE7AwYnM7i8fIGOPsX942VRmtcOj3VHgyVyR3fm+lkZuFO83FpvKW9i1VK18be7fcAgPv4BV9Y+vMg341Udw==}
+    peerDependencies:
+      mathjax-full: ^3.2.2
+      react: '>=17'
+      react-dom: '>=17'
 
   '@motionone/animation@10.18.0':
     resolution: {integrity: sha512-9z2p5GFGCm0gBsZbi8rVMOAJCtw1WqBTIPw3ozk06gDvZInBPIsQcHgYogEJ4yuHJ+akuW8g1SEIOpTOvYs8hw==}
@@ -5583,6 +5615,16 @@ snapshots:
     dependencies:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
+
+  '@md-latex-renderer/core@0.1.0': {}
+
+  '@md-latex-renderer/react@0.1.5(mathjax-full@3.2.2)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)':
+    dependencies:
+      '@md-latex-renderer/core': 0.1.0
+      lodash: 4.17.21
+      mathjax-full: 3.2.2
+      react: 19.1.1
+      react-dom: 19.1.1(react@19.1.1)
 
   '@motionone/animation@10.18.0':
     dependencies:
