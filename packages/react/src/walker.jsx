@@ -174,6 +174,8 @@ const ItemRenderer = memo(
               </Block>
               <Block
                 style={{
+                  display: "flex",
+                  flexDirection: "column",
                   paddingLeft:
                     item.type === MARKDOWN_COMPONENT.HEADING ? INDENT_SIZE : 0,
                 }}
@@ -418,7 +420,7 @@ const ItemRenderer = memo(
 const MathRender = React.memo(
   ({
     latex,
-    fixedColor,
+    fixedColor = "black",
     fontSize,
     maxFormulaWidth,
     showAsBlock = undefined,
@@ -504,6 +506,8 @@ const MathRender = React.memo(
     return (
       <Block
         style={{
+          display: "flex",
+          flexDirection: "column",
           flex: 1,
           justifyContent: "center",
         }}

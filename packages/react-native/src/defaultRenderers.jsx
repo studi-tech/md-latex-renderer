@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { MotiView } from "moti";
-import { SvgXml, SvgFromXml } from "react-native-svg";
+import { SvgFromXml } from "react-native-svg";
 
 export const defaultRenderers = {
   Text,

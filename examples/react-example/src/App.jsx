@@ -45,15 +45,15 @@ export default function App() {
   return (
     <div
       style={{
-        width: "430px",
-        height: "932px",
+        // width: "430px",
+        // height: "932px",
         backgroundColor: "lightgray",
         // opacity: "70%",
         padding: "20px",
         overflow: "scroll",
       }}
     >
-      <MarkdownRenderer latex={md2} maxFormulaWidth={390} fontSize={20} />
+      <MarkdownRenderer latex={md2} fontSize={20} />
     </div>
   );
 }

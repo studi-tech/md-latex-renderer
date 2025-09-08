@@ -10,12 +10,21 @@ export const defaultRenderers = {
   SVG: ({ svgString, ...props }) =>
     React.createElement("img", {
       src: `data:image/svg+xml;utf8,${encodeURIComponent(svgString)}`,
-      // style: { display: "inline-block" },
       ...props,
     }),
   LoadingIndicator: () => React.createElement("span", props, "Loading..."),
   Block: ({ children, ...props }) =>
-    React.createElement("div", props, children),
+    React.createElement(
+      "div",
+      {
+        ...props,
+        style: {
+          gap: 10,
+          ...props.style,
+        },
+      },
+      children
+    ),
   Button: ({ onPress, children, ...props }) =>
     React.createElement("button", { onClick: onPress, ...props }, children),
   Image: ({ src, alt, ...props }) =>
