@@ -1,6 +1,6 @@
 {
   "name": "@md-latex-renderer/react",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "React renderer for md-latex-renderer AST.",
   "main": "src/index.jsx",
   "type": "module",
