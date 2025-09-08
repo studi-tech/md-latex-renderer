@@ -73,8 +73,9 @@ const ItemRenderer = memo(
       case MARKDOWN_COMPONENT.HEADING:
       case MARKDOWN_COMPONENT.ORDERED_LIST:
       case MARKDOWN_COMPONENT.UNORDERED_LIST:
+        let updatedFontSize = fontSize;
         if (MARKDOWN_COMPONENT.HEADING) {
-          fontSize = fontSize + normalizeFontSize(item.fontLevel);
+          updatedFontSize = fontSize + normalizeFontSize(item.fontLevel);
         }
         return (
           <Block
@@ -103,7 +104,7 @@ const ItemRenderer = memo(
                       color: fixedColor,
                       fontWeight: "bold",
                       marginTop: normalizePx(2),
-                      fontSize,
+                      fontSize: updatedFontSize,
                     }}
                   >
                     {enumerationToText(item.enumeration, item.listLevel)}
@@ -112,10 +113,11 @@ const ItemRenderer = memo(
                 {item.type === MARKDOWN_COMPONENT.UNORDERED_LIST && (
                   <Block
                     style={{
-                      height: fontSize / 2,
-                      width: fontSize / 2,
-                      marginTop: fontSize / 2,
-                      borderRadius: item.listLevel % 4 >= 2 ? 0 : fontSize / 4,
+                      height: updatedFontSize / 2,
+                      width: updatedFontSize / 2,
+                      marginTop: updatedFontSize / 2,
+                      borderRadius:
+                        item.listLevel % 4 >= 2 ? 0 : updatedFontSize / 4,
                       borderWidth: 1,
                       borderColor: fixedColor,
                       backgroundColor:
@@ -147,7 +149,7 @@ const ItemRenderer = memo(
                     fixedColor={fixedColor}
                     maxFormulaWidth={maxFormulaWidth}
                     showAsBlock={showAsBlock}
-                    fontSize={fontSize}
+                    fontSize={updatedFontSize}
                     indentation={indentation}
                     isSelectable={isSelectable}
                     firstSelectedView={firstSelectedView}
@@ -249,7 +251,6 @@ const ItemRenderer = memo(
             </Text>
           );
         }
-        console.log("Writing", item.content);
         return item.content.split(" ").map((word, index) => {
           const isSelected =
             firstSelectedView !== null &&
@@ -407,6 +408,10 @@ const ItemRenderer = memo(
  * @param {number} fontSize - The font size to use for the rendered output
  * @param {number} maxFormulaWidth - The maximum width of the rendered formula
  * @param {boolean} showAsBlock - Whether to show the formula as a block
+ * @param {Array<string>} images - Array of image URLs to be used in the markdown
+ * @param {Array<string>} videos - Array of video URLs to be used in the markdown
+ * @param {boolean} useAnimation - Whether to use animation for rendering
+ * @param {object|null} useSelection - Object to manage text selection, or null if selection is disabled
  * @param {import('./defaults.jsx')} defaults - The default values to use
  * @returns {JSX.Element} The rendered MathJax component
  */
@@ -468,7 +473,6 @@ const MathRender = React.memo(
       return (
         <AnimatedBlock
           style={{
-            display: "flex",
             flex: 1,
             justifyContent: "center",
           }}
@@ -500,7 +504,6 @@ const MathRender = React.memo(
     return (
       <Block
         style={{
-          display: "flex",
           flex: 1,
           justifyContent: "center",
         }}

@@ -3,7 +3,7 @@
   "main": "expo-router/entry",
   "version": "1.0.0",
   "scripts": {
-    "start": "expo start",
+    "start": "npx expo start -- --port=8080",
     "reset-project": "node ./scripts/reset-project.js",
     "android": "expo start --android",
     "ios": "expo start --ios",
@@ -11,9 +11,9 @@
     "lint": "expo lint"
   },
   "dependencies": {
-    "@md-latex-renderer/core": "workspace:*",
-    "@md-latex-renderer/react-native": "workspace:*",
+    "@babel/generator": "^7.28.3",
     "@expo/vector-icons": "^14.1.0",
+    "@md-latex-renderer/react-native": "workspace:*",
     "@react-navigation/bottom-tabs": "^7.3.10",
     "@react-navigation/elements": "^2.3.8",
     "@react-navigation/native": "^7.1.6",

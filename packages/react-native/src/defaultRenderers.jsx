@@ -1,20 +1,19 @@
 import React, { useState } from "react";
 import {
   ActivityIndicator,
+  Dimensions,
   Linking,
   PixelRatio,
   Text,
   View,
-  Text,
   TouchableOpacity,
-  View,
 } from "react-native";
 import { MotiView } from "moti";
-import { SvgFromXML } from "react-native-svg";
+import { SvgXml, SvgFromXml } from "react-native-svg";
 
 export const defaultRenderers = {
   Text,
-  SVG: ({ svgString, ...props }) => <SvgFromXML xml={svgString} {...props} />,
+  SVG: ({ svgString, ...props }) => <SvgFromXml xml={svgString} {...props} />,
   LoadingIndicator: ({ color }) => (
     <ActivityIndicator size="small" color={color} />
   ),
@@ -70,6 +69,10 @@ export const defaultRenderers = {
     </MotiView>
   ),
 };
+
+const { width } = Dimensions.get("window");
+const scaleFont = width / 320;
+const scaleWidth = width / 420;
 
 export const defaultActions = {
   normalizeFontSize: (size) => {

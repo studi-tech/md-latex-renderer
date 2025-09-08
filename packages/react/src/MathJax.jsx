@@ -6,7 +6,6 @@ import { SVG } from "mathjax-full/js/output/svg.js";
 import { liteAdaptor } from "mathjax-full/js/adaptors/liteAdaptor.js";
 import { RegisterHTMLHandler } from "mathjax-full/js/handlers/html.js";
 import { AllPackages } from "mathjax-full/js/input/tex/AllPackages.js";
-import { defaultConstants } from "./defaults.jsx";
 
 const adaptor = liteAdaptor();
 RegisterHTMLHandler(adaptor);
@@ -69,13 +68,13 @@ const applyColor = (svgString, fillColor, isTable = false) => {
   return svgString.replace(/currentColor/gim, `${fillColor}`);
 };
 
-const texToSvg = (textext = "", fontSize = 8, params) => {
+const texToSvg = (textext = "", fontSize = 8, svgRatio = 1, params) => {
   if (!textext) {
     return "";
   }
 
   // Get multiplier for single numbers/chars to avoid scaling issues
-  let multiplier = defaultConstants.SVG_RATIO;
+  let multiplier = svgRatio;
   if (new RegExp(`^\\\\mathrm{[a-z0-9]}$`, "g").test(textext)) {
     multiplier *= 1.2;
   } else if (new RegExp(`^\\\\mathrm{[a-z0-9]+}$`, "g").test(textext)) {
@@ -84,7 +83,7 @@ const texToSvg = (textext = "", fontSize = 8, params) => {
     multiplier *= 1.1;
   }
 
-  if (multiplier > 1) {
+  if (multiplier > svgRatio) {
     // Add a phantom to avoid scaling issues with single numbers
     textext = "\\vphantom{x}" + textext;
   }
@@ -112,7 +111,17 @@ const texToSvg = (textext = "", fontSize = 8, params) => {
 };
 
 const MathJax = memo(
-  ({ fontSize, color, inline, maxWidth, children, SvgFromString } = {}) => {
+  ({
+    fontSize,
+    color,
+    inline,
+    maxWidth,
+    children,
+    SvgFromString,
+    defaults,
+  } = {}) => {
+    const { defaultConstants } = defaults;
+
     const params = {
       ex: 8,
       em: 16,
@@ -125,7 +134,12 @@ const MathJax = memo(
     const textext = children || "";
     const newFontSize = fontSize ? fontSize / 2 : undefined;
     color = color || "black";
-    let svgString = texToSvg(textext, newFontSize, params);
+    let svgString = texToSvg(
+      textext,
+      newFontSize,
+      defaultConstants.SVG_RATIO,
+      params
+    );
     const isTable = textext.includes("\\begin{array}");
     svgString = applyColor(svgString, color, isTable);
     return <SvgFromString svgString={svgString} color={color} />;
@@ -133,4 +147,3 @@ const MathJax = memo(
 );
 
 export default MathJax;
-export { texToSvg };

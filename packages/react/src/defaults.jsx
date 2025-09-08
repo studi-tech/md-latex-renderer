@@ -44,12 +44,12 @@ export const defaultConstants = {
   FONT_SIZE: defaultActions.normalizeFontSize(12),
   HIGHLIGHT_COLOR: "rgb(46, 62, 159)",
   INDENT_SIZE: defaultActions.normalizePx(15),
-  SVG_RATIO: 0.15,
+  SVG_RATIO: 0.11,
 };
 
 const defaults = {
-  renderers: defaultRenderers,
-  actions: defaultActions,
-  constants: defaultConstants,
+  defaultRenderers,
+  defaultActions,
+  defaultConstants,
 };
 export default defaults;

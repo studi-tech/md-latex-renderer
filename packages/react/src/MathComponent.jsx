@@ -1,5 +1,5 @@
 import { memo } from "react";
-import CustomMathJax from "./MathJax.jsx";
+import MathJax from "./MathJax.jsx";
 
 function cleanLatexText(text) {
   let newText = "";
@@ -77,15 +77,16 @@ const MathComponent = memo(
             {leftSymbol}
           </Text>
         )}
-        <CustomMathJax
+        <MathJax
           fontSize={fontSize}
           color={fixedColor}
           inline={showAsBlock === undefined ? !isBlock : !showAsBlock}
           maxWidth={maxFormulaWidth - indentation * INDENT_SIZE}
           SvgFromString={SVG}
+          defaults={defaults}
         >
           {fixedText}
-        </CustomMathJax>
+        </MathJax>
         {rightSymbol && (
           <Text
             style={{
