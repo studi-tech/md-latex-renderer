@@ -10,6 +10,14 @@ import MathRender from "./walker.jsx";
  * @param {number} fontSize - The font size to use for the rendered output
  * @returns {JSX.Element} The rendered MathJax component
  */
-export const MarkdownRenderer = MathRender;
+export function MarkdownRenderer({ className, ...props }) {
+  return (
+    <div className={className}>
+      <MathRender {...props} />
+    </div>
+  );
+}
+
+export { MathRender as MarkdownRendererBase };
 
 export default MarkdownRenderer;

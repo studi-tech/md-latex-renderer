@@ -1,20 +1,18 @@
 import { Dimensions, View } from "react-native";
 import defaults from "./defaultRenderers.jsx";
-import MarkdownRenderer from "@md-latex-renderer/react";
+import { MarkdownRendererBase } from "@md-latex-renderer/react";
 
-function MarkdownRendererNative(props = {}) {
+export function MarkdownRenderer({ style, maxFormulaWidth, ...props }) {
   const { width } = Dimensions.get("window");
   return (
-    <View style={{ flex: 1, width: "100%" }}>
-      <MarkdownRenderer
+    <View style={{ flex: 1, width: "100%", ...style }}>
+      <MarkdownRendererBase
         defaults={defaults}
-        maxFormulaWidth={props.maxFormulaWidth || width}
+        maxFormulaWidth={maxFormulaWidth || width}
         {...props}
       />
     </View>
   );
 }
 
-export { MarkdownRendererNative as MarkdownRenderer };
-
-export default MarkdownRendererNative;
+export default MarkdownRenderer;
