@@ -116,6 +116,7 @@ const ItemRenderer = memo(
                       height: updatedFontSize / 2,
                       width: updatedFontSize / 2,
                       marginTop: updatedFontSize / 2,
+                      borderStyle: "solid",
                       borderRadius:
                         item.listLevel % 4 >= 2 ? 0 : updatedFontSize / 4,
                       borderWidth: 1,

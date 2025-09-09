@@ -2,43 +2,36 @@ import React, { useState } from "react";
 import { MarkdownRenderer } from "@md-latex-renderer/react";
 
 const md = String.raw`¿Cuál es el menor número entero de dos cifras que al dividirlo por $3$, al dividirlo por $4$ y al dividirlo por $5$, su resto es $2$?`;
-const md2 = String.raw`¡Hola, comunidad Studi!
+const md2 = String.raw`Para determinar cuál de las funciones cuadráticas es la correcta, consideremos las características de la parábola descrita en la imagen:
 
-Antes que todo: **¡GRACIAS!**
-En estos cuatro meses de piloto, más de **1.000 estudiantes** usaron Studi para entrenar la PAES. Su progreso confirma nuestra meta: democratizar la preparación preuniversitaria en Chile.
+1. Vértice de la parábola: $(1, 2)$
+2. Intersección con el eje $y$: $(0, 3)$
 
-Este 7 de julio nuestro periodo de piloto termina y Studi _“se gradúa”_. Con esa graduación llega la siguiente etapa: Studi Pro, una suscripción que nos permitirá mantener los servidores encendidos, retribuir a nuestro equipo académico y, sobre todo, lanzar mejoras cada semana.
+La forma general de una función cuadrática es $y = ax^2 + bx + c$. Para encontrar cuál de las funciones dadas tiene el vértice en $(1, 2)$, podemos usar la fórmula del vértice para una parábola: $x = -\frac{b}{2a}$.
 
-# ¿Qué seguirá siendo gratis?
-- 3 corazones recargables cada 5 h (1 corazón = 1 ensayo).
-- Ensayos de Competencia Matemática M1 de 15 preguntas / 30 min, con todos los ejes.
-- Si aciertas 12 o más preguntas, ganas un corazón extra: ¡el esfuerzo se premia!
-- Historial de todos tus ensayos.
-- Profe IA para dudas generales (con energía limitada).
-Así, quien lo necesite podrá seguir estudiando sin costo.
+Calculamos esto para cada opción:
 
-# ¿Qué desbloquea la suscripción Studi Pro?
-- Acceso a todo el material académico de la asignatura comprada
-- Ensayos (de la materia comprada) ilimitados y 100% personalizables (ejes, tiempo y duración).
-- Soluciones paso a paso + Profe IA disponible para cada ejercicio (con 200 veces más energía diaria)
-- Imprime y escanea tu hoja de respuestas.
-- Acceso completo a las lecciones interactivas (de la materia comprada) una vez estén implementadas
+- $y = x^2 + 2x - 3$: 
+  - Vértice en $x = -\frac{2}{2} = -1$ (incorrecto)
+    - Vértice en $x = -\frac{2}{2} = -1$ (incorrecto)
+      - Vértice en $x = -\frac{2}{2} = -1$ (incorrecto)
 
-# Próximas novedades
-- Prueba completa de Comprensión Lectora.
-- PAES de Competencia Matemática 2 (M2).
-- Lecciones cortas e interactivas para aprender justo lo que necesitas.
-- Estadísticas avanzadas para llevar tu preparación al siguiente nivel.
+- $y = x^2 - 2x + 3$: 
+  - Vértice en $x = \frac{2}{2} = 1$ (correcto)
 
+- $y = x^2 + 2x + 3$: 
+  - Vértice en $x = -\frac{2}{2} = -1$ (incorrecto)
 
-Sabemos que el presupuesto estudiantil es ajustado; por eso la versión gratuita se queda y seguirá creciendo. Si puedes sumarte a Studi Pro, estarás ayudando a que todos tengan una herramienta de estudio potente y justa.
+- $y = x^2 - 2x - 3$: 
+  - Vértice en $x = \frac{2}{2} = 1$ (correcto), pero la parábola interseca el eje $y$ en $-3$, no en $3$.
 
-Para más noticias y ser el primero en saber lo que se viene, [¡síguenos en Instagram!](https://www.instagram.com/studi_paes/)
+Ahora, verifiquemos qué ecuación pasa por la coordenada $(0, 3)$:
 
-Gracias por confiar en Studi. Si tienes preguntas, ideas locas o solo quieres saludar, ¡escríbenos cuando quieras!
+La función $y = x^2 - 2x + 3$ 
 
-Con cariño y compromiso,
-El equipo Studi`;
+Si $x = 0$, entonces $y = 0^2 - 2(0) + 3 = 3$, que coincide con la intersección dada.
+
+Por lo tanto, la función cuadrática correcta es $y = x^2 - 2x + 3$. 🎉`;
 
 export default function App() {
   const [selection, setSelection] = useState(null);
@@ -53,7 +46,7 @@ export default function App() {
         overflow: "scroll",
       }}
     >
-      <MarkdownRenderer latex={md} fontSize={20} />
+      <MarkdownRenderer latex={md2} fontSize={20} />
     </div>
   );
 }

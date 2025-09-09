@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@md-latex-renderer/react": "^0.1.5",
+    "@md-latex-renderer/react": "latest",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
   },

@@ -69,7 +69,10 @@ function parseMarkdownLevel(blocks) {
 
       let prefix = "\n";
       if (!start[0]) {
-        const indent = Math.floor(start[1].match(/^\s*/)[0].length / 2);
+        const sizePerIndent = 2;
+        const indent = Math.floor(
+          start[1].match(/^\s*/)[0].length / sizePerIndent
+        );
         if (levelForIndentation[indent] !== undefined) {
           level = levelForIndentation[indent];
         } else if (indent > oldIndent) {
@@ -82,8 +85,8 @@ function parseMarkdownLevel(blocks) {
 
         let text = start[1].trim();
         if (text.length > 0) {
-          if (text.match(/^#+ /)) {
-            headingLevel = text.match(/^#+ /)[0].length - 1;
+          if (text.match(/^#+(?: |$)/)) {
+            headingLevel = text.match(/^#+(?: |$)/)[0].length - 1;
             prefix = "\n\n" + "#".repeat(headingLevel + 1) + " ";
             blockDocument.type = MARKDOWN_COMPONENT.HEADING;
             blockDocument.fontLevel = Math.max(0, 6 - headingLevel);
@@ -105,15 +108,15 @@ function parseMarkdownLevel(blocks) {
                 delete nodes[key];
               }
             }
-          } else if (text.match(/^- /)) {
+          } else if (text.match(/^-(?: |$)/)) {
             prefix = "\n" + " ".repeat(level) + "- ";
             blockDocument.type = MARKDOWN_COMPONENT.UNORDERED_LIST;
             maxLevel = Math.max(maxLevel, level + 1);
             text = text.slice(1).trim();
-          } else if (text.match(/^\d+\. /)) {
+          } else if (text.match(/^\d+\.(?: |$)/)) {
             blockDocument.type = MARKDOWN_COMPONENT.ORDERED_LIST;
             maxLevel = Math.max(maxLevel, level + 1);
-            text = text.slice(text.match(/^\d+/)[0].length + 1).trim();
+            text = text.slice(text.match(/^\d+(?:\.(?: |$))/)[0].length).trim();
             if (enumerationsForLevel[level] === undefined) {
               enumerationsForLevel[level] = 1;
             } else {
@@ -439,7 +442,7 @@ function parseInlineLatex(latex) {
         }
         isFunction = true;
         isParentesis = true;
-        inlines.push([false, inline.trim()]);
+        inlines.push([false, inline]);
         inline = "";
       } else if (latex[i] === ")") {
         if (!isParentesis) {
@@ -447,7 +450,7 @@ function parseInlineLatex(latex) {
         }
         isFunction = false;
         isParentesis = false;
-        inlines.push([true, inline.trim()]);
+        inlines.push([true, inline]);
         inline = "";
       } else if (latex[i] === "$" && !isFunction) {
         inline += "$";
@@ -458,7 +461,7 @@ function parseInlineLatex(latex) {
       if (isParentesis) {
         continue;
       }
-      inlines.push([isFunction, inline.trim()]);
+      inlines.push([isFunction, inline]);
       inline = "";
       isFunction = !isFunction;
     } else {
@@ -466,7 +469,18 @@ function parseInlineLatex(latex) {
     }
   }
   if (!isFunction) {
-    inlines.push([isFunction, inline.trim()]);
+    inlines.push([isFunction, inline]);
+  }
+
+  // Trim all inlines avoiding first
+  if (inlines.length > 1) {
+    for (const inline of inlines.slice(1)) {
+      inline[1] = inline[1].trim();
+    }
+  }
+  // If first is math, trim it, if not, keep it for checking indents
+  if (inlines.length > 0 && inlines[0][0]) {
+    inlines[0][1] = inlines[0][1].trim();
   }
 
   return inlines;
@@ -509,7 +523,6 @@ export function parseMarkdown(latex, images = [], videos = []) {
 
   latex = latex
     .trim()
-    .replace(/ +/g, " ")
     .replace(regexRightSymbols, (_, p) => "$" + p)
     .replace(regexLeftSymbols, (_, p) => p + "$")
     .replace(regexMathRightSymbols, (_, p, r) => "$" + p + r)
