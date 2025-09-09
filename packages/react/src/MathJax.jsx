@@ -5,7 +5,7 @@ import {
   mathjax,
   RegisterHTMLHandler,
   SVG,
-  Tex,
+  TeX,
 } from "./mathjax-compat.js";
 
 const adaptor = liteAdaptor();
@@ -89,7 +89,7 @@ const texToSvg = (textext = "", fontSize = 8, svgRatio = 1, params) => {
     textext = "\\vphantom{x}" + textext;
   }
 
-  const tex = new Tex({
+  const tex = new TeX({
     packages: params.packages.split(/\s*,\s*/),
   });
   const svg = new SVG({ fontCache: params.fontCache ? "local" : "none" });
