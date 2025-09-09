@@ -142,6 +142,7 @@ const MathComponent = memo(
             justifyContent: "center",
             alignItems: "center",
             alignContent: "center",
+            gap: 0,
           }}
         >
           {MathComponent}

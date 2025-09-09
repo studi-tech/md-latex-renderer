@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { MarkdownRenderer } from "@md-latex-renderer/react";
 
-const md = String.raw`En la figura adjunta $ABCD$, $EFGH$ y $JKLM$, $ABCD$ son tres cuadrados cuyos lados miden $4 \mathrm{~cm}$, $2 \mathrm{~cm}$ y $1 \mathrm{~cm}$, respectivamente, con $H$ y $E$ en el segmento $C B$, y $J$ y $M$ en el segmento $FG$. Si los rectángulos achurados tienen el mismo ancho, ¿cuál es el área de la región achurada?`;
+const md = String.raw`¿Cuál es el menor número entero de dos cifras que al dividirlo por $3$, al dividirlo por $4$ y al dividirlo por $5$, su resto es $2$?`;
 const md2 = String.raw`¡Hola, comunidad Studi!
 
 Antes que todo: **¡GRACIAS!**
@@ -53,7 +53,7 @@ export default function App() {
         overflow: "scroll",
       }}
     >
-      <MarkdownRenderer latex={md2} fontSize={20} />
+      <MarkdownRenderer latex={md} fontSize={20} />
     </div>
   );
 }
